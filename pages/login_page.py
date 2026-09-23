@@ -20,7 +20,13 @@ class LoginPage:
         self.login_button.click()
 
     def verify_login_successful(self):
-        expect(self.page).to_have_url(f"{BASE_URL}inventory.html")
+        expect(self.page).to_have_url(
+            f"{BASE_URL}inventory.html"
+        )
 
     def verify_error_contains(self, message: str):
         expect(self.error_message).to_contain_text(message)
+
+    def verify_login_page(self):
+        expect(self.login_button).to_be_visible()
+        expect(self.page).to_have_url(BASE_URL)

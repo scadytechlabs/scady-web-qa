@@ -10,6 +10,7 @@ class CheckoutPage:
         self.postal_code = page.locator("[data-test='postalCode']")
         self.continue_button = page.locator("[data-test='continue']")
         self.finish_button = page.locator("[data-test='finish']")
+        self.error_message = page.locator("[data-test='error']")
         self.complete_header = page.locator(
             "[data-test='complete-header']"
         )
@@ -24,6 +25,12 @@ class CheckoutPage:
         self.last_name.fill(last_name)
         self.postal_code.fill(postal_code)
         self.continue_button.click()
+
+    def continue_without_details(self):
+        self.continue_button.click()
+
+    def verify_error_contains(self, message: str):
+        expect(self.error_message).to_contain_text(message)
 
     def finish_order(self):
         self.finish_button.click()
