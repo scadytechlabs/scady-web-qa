@@ -2,8 +2,11 @@ import pytest
 
 from pages.login_page import LoginPage
 from config.settings import STANDARD_USER, PASSWORD
+from data.login_data import INVALID_LOGIN_DATA
 
 
+@pytest.mark.smoke
+@pytest.mark.regression
 def test_standard_user_can_login(page):
     login_page = LoginPage(page)
 
@@ -12,30 +15,11 @@ def test_standard_user_can_login(page):
     login_page.verify_login_successful()
 
 
+@pytest.mark.regression
+@pytest.mark.negative
 @pytest.mark.parametrize(
     "username,password,expected_error",
-    [
-        (
-            "invalid_user",
-            PASSWORD,
-            "Username and password do not match",
-        ),
-        (
-            STANDARD_USER,
-            "wrong_password",
-            "Username and password do not match",
-        ),
-        (
-            "",
-            PASSWORD,
-            "Username is required",
-        ),
-        (
-            STANDARD_USER,
-            "",
-            "Password is required",
-        ),
-    ],
+    INVALID_LOGIN_DATA,
 )
 def test_invalid_login_scenarios(
     page,

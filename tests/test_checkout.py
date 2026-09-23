@@ -1,3 +1,4 @@
+import pytest
 from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
 from pages.cart_page import CartPage
@@ -5,7 +6,8 @@ from pages.checkout_page import CheckoutPage
 
 from config.settings import STANDARD_USER, PASSWORD
 
-
+@pytest.mark.smoke
+@pytest.mark.regression
 def test_customer_can_complete_purchase(page):
 
     login_page = LoginPage(page)
